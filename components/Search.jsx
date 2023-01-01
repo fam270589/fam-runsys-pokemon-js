@@ -31,7 +31,7 @@ const Search = (props) => {
 	};
 
 	return (
-		<div className="flex gap-2 mt-1 mb-5">
+		<div className="flex gap-2 my-10">
 			<input
 				className="border rounded-md px-3"
 				type="text"

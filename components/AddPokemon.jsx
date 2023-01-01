@@ -43,7 +43,7 @@ const AddPokemon = (props) => {
 	};
 
 	return (
-		<div className="mb-5 flex flex-col items-center">
+		<div className="my-5 flex flex-col items-center">
 			<h1
 				className="bg-orange-400 px-3 text-white rounded-md cursor-pointer mb-3"
 				onClick={() => setIsOpen((prev) => !prev)}
