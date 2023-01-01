@@ -20,10 +20,7 @@ const Search = (props) => {
 	};
 
 	const handleSearch = (key) => {
-		if (key.trim() === "") {
-			fetchPokemons();
-			return;
-		}
+		if (key.trim() === "") return;
 
 		const newList = pokemons.filter((pokemon) =>
 			pokemon.name.includes(key.toLowerCase())
