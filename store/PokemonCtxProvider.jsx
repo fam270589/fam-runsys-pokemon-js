@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const PokemonContext = React.createContext({
 	pokemons: [],
+	fetchPokemons: () => {},
 	setPokemons: () => {},
 	catchedPokes: [],
 	setCatchedPokes: () => {},
@@ -12,6 +13,29 @@ export const PokemonContext = React.createContext({
 const PokemonCtxProvider = (props) => {
 	const [pokemons, setPokemons] = useState([]);
 	const [catchedPokes, setCatchedPokes] = useState([]);
+
+	const fetchPokemons = async () => {
+		try {
+			const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+			const data = await resp.json();
+
+			const tempPokemons = data.results.map((pokemon, idx) => {
+				const idString = (idx + 1).toString();
+				return { ...pokemon, catched: false, id: idString };
+			});
+
+			setPokemons(tempPokemons);
+		} catch (error) {
+			console.log("error: ", error);
+		}
+	};
+
+	useEffect(() => {
+		fetchPokemons();
+		console.log("useEffect from CtxProvider.js");
+
+		return () => {};
+	}, []);
 
 	const setCatched = (id) => {
 		const tempPokemons = pokemons.map((pokemon) => {
@@ -27,6 +51,7 @@ const PokemonCtxProvider = (props) => {
 
 	const contextValue = {
 		pokemons,
+		fetchPokemons,
 		setPokemons,
 		catchedPokes,
 		setCatchedPokes,

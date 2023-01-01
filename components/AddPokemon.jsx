@@ -43,16 +43,16 @@ const AddPokemon = (props) => {
 	};
 
 	return (
-		<div className="my-5 flex flex-col items-center">
+		<div className="w-full mt-3 mb-5 flex flex-col items-center">
 			<h1
-				className="bg-orange-400 px-3 text-white rounded-md cursor-pointer mb-3"
+				className="bg-orange-400 py-1 px-3 text-white rounded-md cursor-pointer mb-5"
 				onClick={() => setIsOpen((prev) => !prev)}
 			>
 				Add new pokemon +
 			</h1>
 			{isOpen ? (
 				<form className="flex flex-col gap-2" onSubmit={handleAdd}>
-					<div className="flex justify-between">
+					<div className="flex justify-between gap-2">
 						<label htmlFor="name">Name:</label>
 						<input
 							type="text"
@@ -60,7 +60,7 @@ const AddPokemon = (props) => {
 							ref={nameRef}
 						/>
 					</div>
-					<div className="flex justify-between">
+					<div className="flex justify-between gap-2">
 						<label htmlFor="type">Type:</label>
 						<input
 							type="text"
@@ -68,7 +68,7 @@ const AddPokemon = (props) => {
 							ref={typeRef}
 						/>
 					</div>
-					<div className="flex justify-between">
+					<div className="flex justify-between gap-2">
 						<label htmlFor="height">Height:</label>
 						<input
 							type="text"
@@ -76,7 +76,7 @@ const AddPokemon = (props) => {
 							ref={heightRef}
 						/>
 					</div>
-					<div className="flex justify-between">
+					<div className="flex justify-between gap-2">
 						<label htmlFor="weight">Weight:</label>
 						<input
 							type="text"
@@ -84,7 +84,7 @@ const AddPokemon = (props) => {
 							ref={weightRef}
 						/>
 					</div>
-					<button className="bg-green-300 rounded-md">Add</button>
+					<button className="bg-green-300 rounded-md mt-1 mb-7 py-1">Add</button>
 				</form>
 			) : null}
 		</div>

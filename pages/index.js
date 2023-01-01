@@ -1,33 +1,10 @@
 import Head from "next/head";
-import { useContext, useEffect } from "react";
 import AddPokemon from "../components/AddPokemon";
 import Header from "../components/layout/Header";
 import PokemonList from "../components/PokemonList";
 import Search from "../components/Search";
-import { useFetchAll } from "../hooks/useFetchAll";
-
-import { PokemonContext } from "../store/PokemonCtxProvider";
 
 export default function Home() {
-	const allPoke = useFetchAll([]);
-
-	const pokemonCtx = useContext(PokemonContext);
-	const setPokemons = pokemonCtx.setPokemons;
-
-	useEffect(() => {
-		const arrPokemons = localStorage.getItem("pokemons");
-
-		if (arrPokemons === null) {
-			localStorage.setItem("pokemons", JSON.stringify(allPoke));
-		}
-
-		const items = JSON.parse(arrPokemons);
-
-		setPokemons(items);
-
-		return () => {};
-	}, [allPoke, setPokemons]);
-
 	return (
 		<div className="w-full flex flex-col items-center">
 			<Head>
@@ -37,10 +14,10 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="w-full flex flex-col justify-center items-center max-w-7xl px-3 py-2 text-slate-700 select-none">
+			<main className="w-full flex flex-col justify-center items-center max-w-3xl p-2 select-none">
 				<Header />
-				<AddPokemon />
 				<Search />
+				<AddPokemon />
 				<PokemonList />
 			</main>
 		</div>

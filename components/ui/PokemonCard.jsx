@@ -11,14 +11,14 @@ const PokemonCard = ({ id, pokemon }) => {
 
 	const handleCatch = (id) => {
 		setCatched(id);
-		// const newPoke: IPokemon = { ...pokemon, catched: true };
-		// setCatchedPokes((prev) => [...prev, newPoke]);
 	};
 
 	return (
-		<div className="flex w-full my-3 justify-between border py-2 px-3 rounded-md drop-shadow-md">
+		<div className="flex w-full my-3 justify-between border shadow-sm py-3 px-5 rounded-md drop-shadow-md">
 			<Link href={`/${id}`}>
-				<p className="cursor-pointer">{pokemon.name}</p>
+				<p className="cursor-pointer underline-offset-4 hover:underline">
+					{pokemon.name}
+				</p>
 			</Link>
 			{pokemon.catched ? (
 				<p

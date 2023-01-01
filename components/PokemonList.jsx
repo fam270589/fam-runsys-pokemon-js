@@ -11,6 +11,7 @@ const PokemonList = () => {
 	const pokemonCtx = useContext(PokemonContext);
 	const pokemons = pokemonCtx.pokemons;
 	const setPokemons = pokemonCtx.setPokemons;
+	const fetchPokemons = pokemonCtx.fetchPokemons;
 
 	const handleSortName = () => {
 		let sorted;
@@ -31,10 +32,12 @@ const PokemonList = () => {
 
 	const handleSortCatched = () => {
 		if (sortCatchedActive) {
-			const arrPokemons = localStorage.getItem("pokemons");
-			const items = JSON.parse(arrPokemons);
+			// const arrPokemons = localStorage.getItem("pokemons");
+			// const items = JSON.parse(arrPokemons);
 
-			setPokemons(items);
+			// setPokemons(items);
+
+			fetchPokemons();
 		} else {
 			const catched = pokemons.filter((pokemon) => pokemon.catched === true);
 			setPokemons(catched);
@@ -44,20 +47,22 @@ const PokemonList = () => {
 	};
 
 	return (
-		<>
-			<div className="flex gap-6">
+		<div className="w-full flex flex-col items-center">
+			<div className="flex gap-7">
 				<p>Sort: </p>
 				<p
-					className={`border text-gray-500 px-2 rounded-md cursor-pointer ${
-						sortNameActive ? "border-blue-400 bg-blue-400 text-white" : ""
+					className={`border px-2 rounded-md cursor-pointer ${
+						sortNameActive
+							? "border-blue-400 bg-blue-400 text-white"
+							: "text-gray-500"
 					}`}
 					onClick={handleSortName}
 				>
 					{isAscending ? "Descending" : "Ascending"}
 				</p>
 				<p
-					className={`border text-gray-500 px-2 rounded-md cursor-pointer ${
-						sortCatchedActive ? "border-blue-400 bg-blue-400 text-white" : ""
+					className={`border px-2 rounded-md cursor-pointer ${
+						sortCatchedActive ? "border-blue-400 bg-blue-400 text-white" : "text-gray-500"
 					}`}
 					onClick={handleSortCatched}
 				>
@@ -65,16 +70,16 @@ const PokemonList = () => {
 				</p>
 			</div>
 
-			<div className="w-5/6 sm:w-1/2 my-1">
-				{pokemons ? (
+			<div className="w-full sm:w-1/2 my-1 px-5">
+				{pokemons.length > 0 ? (
 					pokemons.map((pokemon) => (
 						<PokemonCard key={pokemon.id} id={pokemon.id} pokemon={pokemon} />
 					))
 				) : (
-					<p>Loading...</p>
+					<p className="text-center my-10">Pokemon Not Found...</p>
 				)}
 			</div>
-		</>
+		</div>
 	);
 };
 
