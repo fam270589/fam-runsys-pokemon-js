@@ -15,6 +15,10 @@ const Search = (props) => {
 		setSearchKey(key);
 	};
 
+	const handleReset = () => {
+		fetchPokemons();
+	};
+
 	const handleSearch = (key) => {
 		if (key.trim() === "") {
 			fetchPokemons();
@@ -32,7 +36,7 @@ const Search = (props) => {
 		<div className="w-full flex flex-col my-7 items-center gap-2">
 			<p
 				className="underline underline-offset-2 hover:text-blue-500"
-				onClick={() => fetchPokemons()}
+				onClick={handleReset}
 			>
 				Reset List
 			</p>

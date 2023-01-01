@@ -10,21 +10,18 @@ const Details = (props) => {
 
 	const pokemonCtx = useContext(PokemonContext);
 	const setCatched = pokemonCtx.setCatched;
-	const setCatchedPokes = pokemonCtx.setCatchedPokes;
-	const pokemons = pokemonCtx.pokemons;
-	const catchedPokes = pokemonCtx.catchedPokes;
 
 	const router = useRouter();
 	const { id } = router.query;
+	const theId = isNaN(id) ? 25 : id;
 
 	useEffect(() => {
 		const fetchDetails = async () => {
 			try {
-				const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+				const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${theId}`);
 				const data = await resp.json();
 
 				setDetails(data);
-				console.log(data);
 			} catch (error) {
 				console.log("error: ", error);
 			}
@@ -33,14 +30,9 @@ const Details = (props) => {
 		fetchDetails();
 
 		return () => {};
-	}, [id]);
+	}, [theId]);
 
 	const handleCatch = (id) => {
-		const found = pokemons.find((pokemon) => pokemon.id === id);
-		const newPoke = { ...found, catched: true };
-
-		// const newList: IPokemon[] = [...catchedPokes, newPoke];
-		// setCatchedPokes(newList);
 		setIsCatched(true);
 		setCatched(id);
 	};

@@ -11,7 +11,7 @@ const PokemonList = () => {
 	const pokemonCtx = useContext(PokemonContext);
 	const pokemons = pokemonCtx.pokemons;
 	const setPokemons = pokemonCtx.setPokemons;
-	const fetchPokemons = pokemonCtx.fetchPokemons;
+	const getLocalPokemons = pokemonCtx.getLocalPokemons;
 
 	const handleSortName = () => {
 		let sorted;
@@ -32,15 +32,12 @@ const PokemonList = () => {
 
 	const handleSortCatched = () => {
 		if (sortCatchedActive) {
-			// const arrPokemons = localStorage.getItem("pokemons");
-			// const items = JSON.parse(arrPokemons);
-
-			// setPokemons(items);
-
-			fetchPokemons();
+			getLocalPokemons();
 		} else {
 			const catched = pokemons.filter((pokemon) => pokemon.catched === true);
 			setPokemons(catched);
+
+			localStorage.setItem("pokemons", JSON.stringify(pokemons));
 		}
 
 		setSortCatchedActive((prevState) => !prevState);
@@ -62,7 +59,9 @@ const PokemonList = () => {
 				</p>
 				<p
 					className={`border px-2 rounded-md cursor-pointer ${
-						sortCatchedActive ? "border-blue-400 bg-blue-400 text-white" : "text-gray-500"
+						sortCatchedActive
+							? "border-blue-400 bg-blue-400 text-white"
+							: "text-gray-500"
 					}`}
 					onClick={handleSortCatched}
 				>

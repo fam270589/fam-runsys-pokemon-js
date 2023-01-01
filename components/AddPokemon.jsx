@@ -1,14 +1,15 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { PokemonContext } from "../store/PokemonCtxProvider";
 
 //todo:-----AddPokemon component-----://
 const AddPokemon = (props) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const nameRef = useRef(null);
-	const typeRef = useRef();
-	const heightRef = useRef();
-	const weightRef = useRef();
+
+	const [name, setName] = useState("");
+	const [type, setType] = useState("");
+	const [height, setHeight] = useState("");
+	const [weight, setWeight] = useState("");
 
 	const pokemonCtx = useContext(PokemonContext);
 	const pokemons = pokemonCtx.pokemons;
@@ -17,22 +18,17 @@ const AddPokemon = (props) => {
 	const handleAdd = (event) => {
 		event.preventDefault();
 
-		const enteredName = nameRef.current?.value;
-		const enteredType = typeRef.current?.value;
-		const enteredHeight = heightRef.current?.value;
-		const enteredWeight = weightRef.current?.value;
-
 		const newPoke = {
-			name: enteredName,
-			type: enteredType,
-			height: enteredHeight,
-			weight: enteredWeight,
+			name,
+			type,
+			height,
+			weight,
 		};
 
 		const newItem = {
-			name: enteredName,
+			name,
 			catched: false,
-			id: enteredName,
+			id: name,
 			details: newPoke,
 		};
 
@@ -40,6 +36,11 @@ const AddPokemon = (props) => {
 
 		setPokemons(newest);
 		localStorage.setItem("pokemons", JSON.stringify(newest));
+
+		setName("");
+		setType("");
+		setHeight("");
+		setWeight("");
 	};
 
 	return (
@@ -55,36 +56,42 @@ const AddPokemon = (props) => {
 					<div className="flex justify-between gap-2">
 						<label htmlFor="name">Name:</label>
 						<input
+							value={name}
 							type="text"
 							className="border rounded-md px-2 mx-1"
-							ref={nameRef}
+							onChange={(e) => setName(e.target.value)}
 						/>
 					</div>
 					<div className="flex justify-between gap-2">
 						<label htmlFor="type">Type:</label>
 						<input
+							value={type}
 							type="text"
 							className="border rounded-md px-2 mx-1"
-							ref={typeRef}
+							onChange={(e) => setType(e.target.value)}
 						/>
 					</div>
 					<div className="flex justify-between gap-2">
 						<label htmlFor="height">Height:</label>
 						<input
+							value={height}
 							type="text"
 							className="border rounded-md px-2 mx-1"
-							ref={heightRef}
+							onChange={(e) => setHeight(e.target.value)}
 						/>
 					</div>
 					<div className="flex justify-between gap-2">
 						<label htmlFor="weight">Weight:</label>
 						<input
+							value={weight}
 							type="text"
 							className="border rounded-md px-2 mx-1"
-							ref={weightRef}
+							onChange={(e) => setWeight(e.target.value)}
 						/>
 					</div>
-					<button className="bg-green-300 rounded-md mt-1 mb-7 py-1">Add</button>
+					<button className="bg-green-300 rounded-md mt-1 mb-7 py-1">
+						Add
+					</button>
 				</form>
 			) : null}
 		</div>

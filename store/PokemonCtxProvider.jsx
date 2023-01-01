@@ -7,6 +7,7 @@ export const PokemonContext = React.createContext({
 	catchedPokes: [],
 	setCatchedPokes: () => {},
 	setCatched: () => {},
+	getLocalPokemons: () => {},
 });
 
 //todo:-----PokemonCtxProvider component-----://
@@ -31,11 +32,26 @@ const PokemonCtxProvider = (props) => {
 	};
 
 	useEffect(() => {
-		fetchPokemons();
+		const arrPokemons = localStorage.getItem("pokemons");
+
+		if (arrPokemons === null) {
+			fetchPokemons();
+		} else {
+			const items = JSON.parse(arrPokemons);
+			setPokemons(items);
+		}
+
 		console.log("useEffect from CtxProvider.js");
 
 		return () => {};
 	}, []);
+
+	const getLocalPokemons = () => {
+		const arrPokemons = localStorage.getItem("pokemons");
+		const items = JSON.parse(arrPokemons);
+
+		setPokemons(items);
+	};
 
 	const setCatched = (id) => {
 		const tempPokemons = pokemons.map((pokemon) => {
@@ -56,6 +72,7 @@ const PokemonCtxProvider = (props) => {
 		catchedPokes,
 		setCatchedPokes,
 		setCatched,
+		getLocalPokemons,
 	};
 
 	return (
